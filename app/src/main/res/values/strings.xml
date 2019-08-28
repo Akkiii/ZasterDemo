@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ZasterApp</string>
+    <string name="email_address">Email Address</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login">Login</string>
+    <string name="email_address_is_required">Valid email address is Required</string>
+    <string name="password_is_required">Password is Required</string>
+</resources>

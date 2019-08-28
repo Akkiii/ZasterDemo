@@ -1,0 +1,121 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'androidx.navigation.safeargs'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    signingConfigs {
+        prod {
+
+        }
+
+        staging {
+
+        }
+    }
+
+    compileSdkVersion 29
+    buildToolsVersion "29.0.1"
+    flavorDimensions "default"
+    defaultConfig {
+        applicationId "com.zasterapp"
+        minSdkVersion 17
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        staging {
+            buildConfigField "String", "SERVICE_URL", "\"https://38fppx26e6.execute-api.us-east-1.amazonaws.com/dev/\""
+        }
+        prod {
+            buildConfigField "String", "SERVICE_URL", "\"https://38fppx26e6.execute-api.us-east-1.amazonaws.com/dev/\""
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    def appDependencies = rootProject.ext.appDependencies
+    def appTestDependencies = rootProject.ext.appTestDependencies
+    def presentationDependencies = rootProject.ext.presentationDependencies
+
+    //UI
+    implementation appDependencies.constraintLayout
+    implementation appDependencies.constraintLayoutSolver
+    implementation appDependencies.appCompat
+    implementation appDependencies.googleMaterial
+    implementation appDependencies.roundedImageView
+    implementation appDependencies.navigationFragment
+    implementation appDependencies.navigationUi
+
+    // Kotlin
+    implementation appDependencies.ktxCore
+    implementation appDependencies.kotlin
+    implementation appDependencies.coroutinesCore
+    implementation appDependencies.coroutinesAndroid
+
+    // Architecture Components
+    implementation presentationDependencies.archRuntime
+    implementation presentationDependencies.archExtensions
+
+    //Retrofit
+    implementation remoteDependencies.retrofit
+    implementation remoteDependencies.gson
+    implementation remoteDependencies.retrofitConverter
+    implementation remoteDependencies.retrofitAdapter
+    implementation remoteDependencies.okHttp
+    implementation remoteDependencies.okHttpLogger
+
+    kapt appDependencies.dataBindingCompiler
+    kapt appDependencies.daggerCompiler
+    kapt appDependencies.daggerProcessor
+
+    kapt presentationDependencies.archCompiler
+
+    compileOnly appDependencies.glassfishAnnotation
+
+    testImplementation appTestDependencies.kotlinJUnit
+
+    androidTestImplementation appTestDependencies.junit
+    androidTestImplementation appTestDependencies.mockito
+    androidTestImplementation appTestDependencies.mockitoAndroid
+    androidTestImplementation(appTestDependencies.espressoCore) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation(appTestDependencies.androidRunner) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation(appTestDependencies.androidRules) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation(appTestDependencies.espressoIntents) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation(appTestDependencies.espressoContrib) {
+        exclude module: 'appcompat'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+        exclude module: 'support-v13'
+        exclude module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+        exclude module: 'design'
+    }
+
+    kaptTest appDependencies.daggerCompiler
+
+    kaptAndroidTest appDependencies.daggerCompiler
+}
