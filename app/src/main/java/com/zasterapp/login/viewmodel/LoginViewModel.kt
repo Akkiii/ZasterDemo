@@ -98,7 +98,7 @@ class LoginViewModel : ViewModel(), Callback<UserModel> {
     }
 
     private fun checkFieldCompletion() {
-        val areFieldsValid = email.isNotEmpty() && email.isValidEmail() && password.isNotEmpty()
+        val areFieldsValid = email.isNotEmpty() && password.isNotEmpty()
         _state.value = State.NextButtonEnabled(areFieldsValid)
     }
 

@@ -29,11 +29,11 @@ object RestClient {
 
         val client = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
             var request = chain.request()
-//            request = request.newBuilder()
-//                    .addHeader("X-API-KEY", Prefs(App.instance).getApiKey()!!)
-//                    .addHeader("accesstoken", Prefs(App.instance).getAccessToken()!!)
+            request = request.newBuilder()
+                .addHeader("x-api-key", "ZVNFgVs2QD6SZxyEyk07034bXggshnXq8qTyrYv0")
+                .addHeader("Content-Type", "application/json")
 //                    .addHeader("iUserId", Prefs(App.instance).getUserId()!!)
-//                    .build()
+                    .build()
 
             val response = chain.proceed(request)
             if (response.code() == 401) {
